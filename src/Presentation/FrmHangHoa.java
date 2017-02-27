@@ -35,8 +35,6 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
-
-
 /**
  *
  * @author Ridotoji Pham
@@ -49,7 +47,7 @@ public class FrmHangHoa extends javax.swing.JFrame {
     public FrmHangHoa() {
         initComponents();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -478,196 +476,215 @@ public class FrmHangHoa extends javax.swing.JFrame {
 
     private void btnthemdonhangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnthemdonhangMouseClicked
         // TODO add your handling code here:
-          int IDSanPham;
-        int MaLoaiSanPham = Integer.parseInt(ComboboxBLL.getSelectedItemID(cbbMaLoai));
-        String TenSanPham = txttensanpham.getText();
-        String Imei = txtsoseri.getText();
-        String NgayNhap = txtngaynhap.getText();
-        String GiaNhap = txtGianhap.getText();
-        int soluong = Integer.parseInt(txtsoluong.getText());
-        String GiaBan = txtGIaBan.getText();
-        String DonViTinh = txtdonvitinh.getText();
-        String HanBaoHanh = txthanbaohanh.getText();
-        String MoTa = txtmota.getText();
-        HangHoaSPDTO HH = new HangHoaSPDTO(0, MaLoaiSanPham, TenSanPham, Imei, NgayNhap, GiaNhap, soluong, GiaBan, DonViTinh, HanBaoHanh, MoTa);
-        HangHoaSPBLL.ThemDonhang(HH);
-         ResultSet rs = HangHoaSPBLL.LayTatCaSanPham();
-        HangHoaSPBLL.DoDuLieuVaoJTablesanpham(rs, tbldonhang);
+        try {
+            //int IDSanPham;
+            int MaLoaiSanPham = Integer.parseInt(ComboboxBLL.getSelectedItemID(cbbMaLoai));
+            String TenSanPham = txttensanpham.getText();
+            String Imei = txtsoseri.getText();
+            String NgayNhap = txtngaynhap.getText();
+            String GiaNhap = txtGianhap.getText();
+            int soluong = Integer.parseInt(txtsoluong.getText());
+            String GiaBan = txtGIaBan.getText();
+            String DonViTinh = txtdonvitinh.getText();
+            String HanBaoHanh = txthanbaohanh.getText();
+            String MoTa = txtmota.getText();
+            HangHoaSPDTO HH = new HangHoaSPDTO(0, MaLoaiSanPham, TenSanPham, Imei, NgayNhap, GiaNhap, soluong, GiaBan, DonViTinh, HanBaoHanh, MoTa);
+            HangHoaSPBLL.ThemDonhang(HH);
+            ResultSet rs = HangHoaSPBLL.LayTatCaSanPham();
+            HangHoaSPBLL.DoDuLieuVaoJTablesanpham(rs, tbldonhang);
+        } catch (NumberFormatException e) {
+            MainClass.ThongBao("Nhập Thông Tin", "Thông Báo", 1);
+        }
+
     }//GEN-LAST:event_btnthemdonhangMouseClicked
 
     private void btnsuadonhangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsuadonhangMouseClicked
         // TODO add your handling code here:
-        int IDSanPham = Integer.parseInt(txtmasanpham.getText());
-        int MaLoaiSanPham = Integer.parseInt(ComboboxBLL.getSelectedItemID(cbbMaLoai));
-        String TenSanPham = txttensanpham.getText();
-        String Imei = txtsoseri.getText();
-        String NgayNhap = txtngaynhap.getText();
-        String GiaNhap = txtGianhap.getText();
-        int soluong = Integer.parseInt(txtsoluong.getText());
-        String GiaBan = txtGIaBan.getText();
-        String DonViTinh = txtdonvitinh.getText();
-        String HanBaoHanh = txthanbaohanh.getText();
-        String MoTa = txtmota.getText();
-        HangHoaSPDTO HH = new HangHoaSPDTO(IDSanPham, MaLoaiSanPham, TenSanPham, Imei, NgayNhap, GiaNhap, soluong, GiaBan, DonViTinh, HanBaoHanh, MoTa);
-        HangHoaSPBLL.SuaDonhang(HH);
-          ResultSet rs = HangHoaSPBLL.LayTatCaSanPham();
-        HangHoaSPBLL.DoDuLieuVaoJTablesanpham(rs, tbldonhang);
+        try {
+            int IDSanPham = Integer.parseInt(txtmasanpham.getText());
+            int MaLoaiSanPham = Integer.parseInt(ComboboxBLL.getSelectedItemID(cbbMaLoai));
+            String TenSanPham = txttensanpham.getText();
+            String Imei = txtsoseri.getText();
+            String NgayNhap = txtngaynhap.getText();
+            String GiaNhap = txtGianhap.getText();
+            int soluong = Integer.parseInt(txtsoluong.getText());
+            String GiaBan = txtGIaBan.getText();
+            String DonViTinh = txtdonvitinh.getText();
+            String HanBaoHanh = txthanbaohanh.getText();
+            String MoTa = txtmota.getText();
+            HangHoaSPDTO HH = new HangHoaSPDTO(IDSanPham, MaLoaiSanPham, TenSanPham, Imei, NgayNhap, GiaNhap, soluong, GiaBan, DonViTinh, HanBaoHanh, MoTa);
+            HangHoaSPBLL.SuaDonhang(HH);
+            ResultSet rs = HangHoaSPBLL.LayTatCaSanPham();
+            HangHoaSPBLL.DoDuLieuVaoJTablesanpham(rs, tbldonhang);
+        } catch (NumberFormatException e) {
+            MainClass.ThongBao("Nhập Thông Tin", "Thông Báo", 1);
+        }
+
     }//GEN-LAST:event_btnsuadonhangMouseClicked
 
     private void btnxoadonhangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnxoadonhangMouseClicked
         // TODO add your handling code here:
-  
+
     }//GEN-LAST:event_btnxoadonhangMouseClicked
 
     private void lbltimkiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbltimkiemMouseClicked
         // TODO add your handling code here:
-          String tuKhoa = txttimkiem.getText();
-       //Kết quả của tìm theo từ khóa ResultSet
+        String tuKhoa = txttimkiem.getText();
+        //Kết quả của tìm theo từ khóa ResultSet
         ResultSet rs = HangHoaSPBLL.LaySanPhamTheoTuKhoa(tuKhoa);
-       //gọi hàm đổ dữ liệu sau khi tìm kiếm vào Table
-      HangHoaSPBLL.DoDuLieuVaoJTablesanpham(rs, tbldonhang);
+        //gọi hàm đổ dữ liệu sau khi tìm kiếm vào Table
+        HangHoaSPBLL.DoDuLieuVaoJTablesanpham(rs, tbldonhang);
     }//GEN-LAST:event_lbltimkiemMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-          ResultSet rs = HangHoaSPBLL.LayTatCaSanPham();
-         HangHoaSPBLL.DoDuLieuVaoJTablesanpham(rs,tbldonhang);
-         
+        ResultSet rs = HangHoaSPBLL.LayTatCaSanPham();
+        HangHoaSPBLL.DoDuLieuVaoJTablesanpham(rs, tbldonhang);
+
         ResultSet rs1 = HangHoaSPBLL.LayTatCaLSP();
-       ComboboxBLL.LoadDuLieuCombobox(rs1, cbbNhomHang, "TenLoaiSanPham", "MaLoaiSanPham");
-        
-       ResultSet rs2 = HangHoaSPBLL.LayTatCaLSP();
+        ComboboxBLL.LoadDuLieuCombobox(rs1, cbbNhomHang, "TenLoaiSanPham", "MaLoaiSanPham");
+
+        ResultSet rs2 = HangHoaSPBLL.LayTatCaLSP();
         ComboboxBLL.LoadDuLieuCombobox(rs2, cbbLoaiHanghoa, "TenLoaiSanPham", "MaLoaiSanPham");
-         
-          ResultSet rs3 = HangHoaSPBLL.Laybangtonkho();
-        HangHoaSPBLL.DoDuLieuVaoJTableBangtonkho(rs3,tbltonkhoHangHoa);
-        
+
+        ResultSet rs3 = HangHoaSPBLL.Laybangtonkho();
+        HangHoaSPBLL.DoDuLieuVaoJTableBangtonkho(rs3, tbltonkhoHangHoa);
+
         HangHoaSPBLL.DoDuLieuVaoJTablesanpham(HangHoaSPBLL.LayTatCaSanPham(), tbldonhang);
-         ResultSet rs4 = HangHoaSPBLL.LayTatCaLSP();
+        ResultSet rs4 = HangHoaSPBLL.LayTatCaLSP();
         ComboboxBLL.LoadDuLieuCombobox(rs4, cbbMaLoai, "TenLoaiSanPham", "MaLoaiSanPham");
-       jTextField3.setText(HangHoaSPBLL.TinhTien(tbltonkhoHangHoa, 4) + " VND");
+        jTextField3.setText(HangHoaSPBLL.TinhTien(tbltonkhoHangHoa, 4) + " VND");
     }//GEN-LAST:event_formWindowOpened
 
     private void cbbNhomHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbNhomHangMouseClicked
-      
+
     }//GEN-LAST:event_cbbNhomHangMouseClicked
 
     private void cbbNhomHangItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbNhomHangItemStateChanged
-    if(evt.getStateChange() == 1){
+        if (evt.getStateChange() == 1) {
             String maLoaiSPDuocChon = ComboboxBLL.getSelectedItemID(cbbNhomHang);
-        ResultSet rs = HangHoaSPBLL.LaySanPhamTheoTenSanPham(maLoaiSPDuocChon,maLoaiSPDuocChon);
+            ResultSet rs = HangHoaSPBLL.LaySanPhamTheoTenSanPham(maLoaiSPDuocChon, maLoaiSPDuocChon);
             HangHoaSPBLL.DoDuLieuVaoJTableBangtonkho(rs, tbltonkhoHangHoa);
         }
     }//GEN-LAST:event_cbbNhomHangItemStateChanged
- public void setSelectedCombobox(String cbbselected) {
-         for(int i = 0; i < cbbMaLoai.getItemCount(); i++){
+    public void setSelectedCombobox(String cbbselected) {
+        for (int i = 0; i < cbbMaLoai.getItemCount(); i++) {
             Object obj = cbbMaLoai.getItemAt(i);
-            if(obj != null){
+            if (obj != null) {
                 DTO.DinhNghiaComboBox m = (DTO.DinhNghiaComboBox) obj;
-                if(cbbselected.equals(m.DisplayMmber)){
+                if (cbbselected.equals(m.DisplayMmber)) {
                     cbbMaLoai.setSelectedItem(m);
                 }
-            }        
+            }
         }
     }
     private void tbldonhangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbldonhangMouseClicked
         // TODO add your handling code here:
-            int index = tbldonhang.getSelectedRow();
+        int index = tbldonhang.getSelectedRow();
+        txtmota.setText("");
         txtmasanpham.setText(tbldonhang.getValueAt(index, 0).toString());
-         String tenLoai = tbldonhang.getValueAt(index, 1).toString();
-        setSelectedCombobox(tenLoai);
-           txttensanpham.setText(tbldonhang.getValueAt(index, 2).toString());
-          txtsoseri.setText(tbldonhang.getValueAt(index, 3).toString());
-          txtngaynhap.setText(tbldonhang.getValueAt(index, 4).toString());
-          txtGianhap.setText(tbldonhang.getValueAt(index, 5).toString());
-          txtsoluong.setText(tbldonhang.getValueAt(index, 6).toString());
-          txtGIaBan.setText(tbldonhang.getValueAt(index, 7).toString());
-          txtdonvitinh.setText(tbldonhang.getValueAt(index, 8).toString());
-          txthanbaohanh.setText(tbldonhang.getValueAt(index, 9).toString());
-           txtmota.setText(tbldonhang.getValueAt(index, 10).toString());
+//        String tenLoai = tbldonhang.getValueAt(index, 1).toString();
+//        setSelectedCombobox(tenLoai);
+        txttensanpham.setText(tbldonhang.getValueAt(index, 2).toString());
+        txtsoseri.setText(tbldonhang.getValueAt(index, 3).toString());
+        txtngaynhap.setText(tbldonhang.getValueAt(index, 4).toString());
+        txtGianhap.setText(tbldonhang.getValueAt(index, 5).toString());
+        txtsoluong.setText(tbldonhang.getValueAt(index, 6).toString());
+        txtGIaBan.setText(tbldonhang.getValueAt(index, 7).toString());
+        txtdonvitinh.setText(tbldonhang.getValueAt(index, 8).toString());
+        txthanbaohanh.setText(tbldonhang.getValueAt(index, 9).toString());
+        //txtmota.setText(tbldonhang.getValueAt(index, 10).toString());
     }//GEN-LAST:event_tbldonhangMouseClicked
 
     private void cbbLoaiHanghoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbLoaiHanghoaMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbLoaiHanghoaMouseClicked
- 
+
     private void btnxuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxuatActionPerformed
         // TODO add your handling code here:
-         try {
-           Connection conn = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-A7029VT\\SQLEXPRESS"
-            + ";databaseName=QuanLyBanHang;user=sa;password=123;");
-           JasperDesign jasperDesign = JRXmlLoader.load("D:\\PhanMemDuAn01\\DuAn1-PhanMemQLBanHang\\DuAn1-PhanMemQLBanHang\\PhanMemQLBanHang\\src\\Report\\SanPham.jrxml");
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-A7029VT\\SQLEXPRESS"
+                    + ";databaseName=QuanLyBanHang;user=sa;password=123;");
+            JasperDesign jasperDesign = JRXmlLoader.load("D:\\PhanMemDuAn01\\DuAn1-PhanMemQLBanHang\\DuAn1-PhanMemQLBanHang\\PhanMemQLBanHang\\src\\Report\\SanPham.jrxml");
             String sql = "select * from SanPham";
             JRDesignQuery newQuyery = new JRDesignQuery();
             newQuyery.setText(sql);
             jasperDesign.setQuery(newQuyery);
             JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, new HashMap(),conn);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, new HashMap(), conn);
             JasperViewer.viewReport(jasperPrint);
-            
+
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this ,e.getMessage());
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_btnxuatActionPerformed
 
     private void cbbLoaiHanghoaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbLoaiHanghoaItemStateChanged
-if(evt.getStateChange() == 1){
+        if (evt.getStateChange() == 1) {
             String maLoaiSPDuocChon = ComboboxBLL.getSelectedItemID(cbbLoaiHanghoa);
-        ResultSet rs = HangHoaSPBLL.LaySanPhamTheoTenSanPham(maLoaiSPDuocChon,maLoaiSPDuocChon);
+            ResultSet rs = HangHoaSPBLL.LaySanPhamTheoTenSanPham(maLoaiSPDuocChon, maLoaiSPDuocChon);
             HangHoaSPBLL.DoDuLieuVaoJTablesanpham(rs, tbldonhang);
         }
     }//GEN-LAST:event_cbbLoaiHanghoaItemStateChanged
 
     private void btnxoadonhangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoadonhangActionPerformed
         // TODO add your handling code here:
-                int[] cacViTriDuocChon = tbldonhang.getSelectedRows();
-           for(int i = 0; i < cacViTriDuocChon.length; i++){
-    String MaLoaiCanXoa = tbldonhang.getValueAt(cacViTriDuocChon[i], 0).toString() ;
-     //Gọi hàm xóa ở tầng xử lý
+        int[] cacViTriDuocChon = tbldonhang.getSelectedRows();
+        for (int i = 0; i < cacViTriDuocChon.length; i++) {
+            String MaLoaiCanXoa = tbldonhang.getValueAt(cacViTriDuocChon[i], 0).toString();
+            //Gọi hàm xóa ở tầng xử lý
             HangHoaSPBLL.XoaDonHang(MaLoaiCanXoa);
-         }
-           ResultSet rs = HangHoaSPBLL.LayTatCaSanPham();
+        }
+        ResultSet rs = HangHoaSPBLL.LayTatCaSanPham();
         //Đọc lại dữ liệu và đổ lại dữ liệu
-       HangHoaSPBLL.DoDuLieuVaoJTablesanpham(rs, tbldonhang);  
+        HangHoaSPBLL.DoDuLieuVaoJTablesanpham(rs, tbldonhang);
     }//GEN-LAST:event_btnxoadonhangActionPerformed
 
     private void txttimkiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimkiemKeyReleased
         // TODO add your handling code here:
-             String tuKhoa = txttimkiem.getText();
-       //Kết quả của tìm theo từ khóa ResultSet
+        String tuKhoa = txttimkiem.getText();
+        //Kết quả của tìm theo từ khóa ResultSet
         ResultSet rs = HangHoaSPBLL.LaySanPhamTheoTuKhoa(tuKhoa);
-       //gọi hàm đổ dữ liệu sau khi tìm kiếm vào Table
-      HangHoaSPBLL.DoDuLieuVaoJTablesanpham(rs, tbldonhang);
+        //gọi hàm đổ dữ liệu sau khi tìm kiếm vào Table
+        HangHoaSPBLL.DoDuLieuVaoJTablesanpham(rs, tbldonhang);
     }//GEN-LAST:event_txttimkiemKeyReleased
 
     private void tbltonkhoHangHoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbltonkhoHangHoaMouseClicked
         // TODO add your handling code here:
-       jTextField3.setText(HangHoaSPBLL.TinhTien(tbltonkhoHangHoa, 4) + " VND");
+        jTextField3.setText(HangHoaSPBLL.TinhTien(tbltonkhoHangHoa, 4) + " VND");
     }//GEN-LAST:event_tbltonkhoHangHoaMouseClicked
 
     private void btnclearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnclearActionPerformed
         // TODO add your handling code here:
-        txtmasanpham.setText("");txtGIaBan.setText("");txtGianhap.setText("");txtdonvitinh.setText("");txthanbaohanh.setText("");
-        txtmota.setText("");txtngaynhap.setText("");txtsoluong.setText("");txtsoseri.setText("");txttensanpham.setText("");
+        txtmasanpham.setText("");
+        txtGIaBan.setText("");
+        txtGianhap.setText("");
+        txtdonvitinh.setText("");
+        txthanbaohanh.setText("");
+        txtmota.setText("");
+        txtngaynhap.setText("");
+        txtsoluong.setText("");
+        txtsoseri.setText("");
+        txttensanpham.setText("");
     }//GEN-LAST:event_btnclearActionPerformed
 
     private void jTextField3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyReleased
         // TODO add your handling code here:
-         jTextField3.setText(HangHoaSPBLL.TinhTien(tbltonkhoHangHoa, 4) + " VND");
+        jTextField3.setText(HangHoaSPBLL.TinhTien(tbltonkhoHangHoa, 4) + " VND");
     }//GEN-LAST:event_jTextField3KeyReleased
 
     private void MnHanhHoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnHanhHoaActionPerformed
         // TODO add your handling code here:
         ResultSet rs = HangHoaSPBLL.LayTatCaSanPham();
-          HangHoaSPBLL.DoDuLieuVaoJTablesanpham(rs, tbldonhang);
+        HangHoaSPBLL.DoDuLieuVaoJTablesanpham(rs, tbldonhang);
     }//GEN-LAST:event_MnHanhHoaActionPerformed
 
     private void JmntonkhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JmntonkhoActionPerformed
         // TODO add your handling code here:
-       ResultSet rs = HangHoaSPBLL.LayTatCaSanPham();
-            HangHoaSPBLL.DoDuLieuVaoJTableBangtonkho(rs, tbltonkhoHangHoa);
+        ResultSet rs = HangHoaSPBLL.LayTatCaSanPham();
+        HangHoaSPBLL.DoDuLieuVaoJTableBangtonkho(rs, tbltonkhoHangHoa);
     }//GEN-LAST:event_JmntonkhoActionPerformed
-      
+
     /**
      * @param args the command line arguments
      */
@@ -753,4 +770,3 @@ if(evt.getStateChange() == 1){
     // End of variables declaration//GEN-END:variables
 
 }
-

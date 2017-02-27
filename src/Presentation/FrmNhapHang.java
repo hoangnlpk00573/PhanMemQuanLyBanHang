@@ -760,20 +760,39 @@ public class FrmNhapHang extends javax.swing.JFrame {
         Date date = new Date();
         String time = sdf.format(date);
         
-        
-        int idsp = Integer.parseInt(txtIDSP.getText());
-        int mahd = Integer.parseInt(txtMaHDNhap.getText());     
-        String donvitinh = txtDonViTinh.getText();
-        double gianhap = Double.parseDouble(txtGiaNhap.getText());
-        int soluong = Integer.parseInt(spnSoLuong.getValue().toString());
-        double thanhtien = gianhap * soluong;
-        String mota = txtMoTaSP.getText();
-        
-        
-        ChiTietHDNhapDTO ctHDN = new ChiTietHDNhapDTO(0, mahd, idsp, soluong, donvitinh, gianhap, thanhtien, mota);
-        ChiTietHDNhapBLL.Them(ctHDN);
-        ResultSet rs = ChiTietHDNhapBLL.LayTatCaHoaDonNhap();
-        ChiTietHDNhapBLL.DoDuLieu(rs, tblChiTietHDNhap);
+        try {
+            int idsp = Integer.parseInt(txtIDSP.getText());
+            int mahd = Integer.parseInt(txtMaHDNhap.getText());
+            int soluong = Integer.parseInt(spnSoLuong.getValue().toString());
+            double gianhap = Double.parseDouble(txtGiaNhap.getText());
+            String donvitinh = txtDonViTinh.getText();
+
+            double thanhtien = gianhap * soluong;
+            String mota = txtMoTaSP.getText();
+
+            ChiTietHDNhapDTO ctHDN = new ChiTietHDNhapDTO(0, mahd, idsp, soluong, donvitinh, gianhap, thanhtien, mota);
+            ChiTietHDNhapBLL.Them(ctHDN);
+            ResultSet rs = ChiTietHDNhapBLL.LayTatCaHoaDonNhap();
+            ChiTietHDNhapBLL.DoDuLieu(rs, tblChiTietHDNhap);
+        } catch (NumberFormatException e) {
+            MainClass.ThongBao("Chọn Sản Phẩm", "ThongBao", 1);
+        }
+        /*try {
+            mahd = Integer.parseInt(txtMaHDNhap.getText());
+        } catch (NumberFormatException e) {
+            MainClass.ThongBao("Chọn Hóa Đơn", "ThongBao", 1);
+        }
+        try {
+            gianhap = Double.parseDouble(txtGiaNhap.getText());
+        } catch (NumberFormatException e) {
+            MainClass.ThongBao("Nhập Giá", "ThongBao", 1);
+        }
+        try {
+            soluong = Integer.parseInt(spnSoLuong.getValue().toString());
+        } catch (NumberFormatException e) {
+            MainClass.ThongBao("Nhập Số Lượng", "ThongBao", 1);
+        }*/
+
 
     }//GEN-LAST:event_bntOKActionPerformed
 

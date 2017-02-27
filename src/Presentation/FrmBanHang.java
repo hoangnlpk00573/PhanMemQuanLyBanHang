@@ -698,19 +698,24 @@ public class FrmBanHang extends javax.swing.JFrame {
         String maKH = ComboboxBLL.getSelectedItemID(cbbKieuKH);
         KhachHangDTO KH = KhachHangBLL.LayDonHangtheoMaDH(maKH);
         txtTenKhachHang.setText(KH.getTenKhachHang());
-        
+
     }//GEN-LAST:event_formWindowOpened
 
     private void mnlammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnlammoiActionPerformed
         // TODO add your handling code here:
-          ResultSet rs1 = KhachHangBLL.LayTatCaKH();
-            KhachHangBLL.LayKHTheoMaKH(rs1, tblBanHangKhach);
+        ResultSet rs1 = KhachHangBLL.LayTatCaKH();
+        KhachHangBLL.LayKHTheoMaKH(rs1, tblBanHangKhach);
     }//GEN-LAST:event_mnlammoiActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling co'de here:
-        txtMahachHang.setText("");txtMLKH.setText("");txtTenKhachHang.setText("");txtDiachi.setText("");
-        txtSODienThoai.setText("");txtLoaiKhachHang.setText("");txtmota.setText("");
+        txtMahachHang.setText("");
+        txtMLKH.setText("");
+        txtTenKhachHang.setText("");
+        txtDiachi.setText("");
+        txtSODienThoai.setText("");
+        txtLoaiKhachHang.setText("");
+        txtmota.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void rbtnNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnNamActionPerformed
@@ -745,48 +750,58 @@ public class FrmBanHang extends javax.swing.JFrame {
 
     private void bntSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSuaActionPerformed
         // TODO add your handling code here:
-        int MaKH = Integer.parseInt(txtMahachHang.getText().toString());
-        int Gioitinh = 1;
-        int maLoaiKH = Integer.parseInt(txtMLKH.getText());
-        String TenKH = txtTenKhachHang.getText();
-        String DiaChi = txtDiachi.getText();
+        try {
+            int MaKH = Integer.parseInt(txtMahachHang.getText().toString());
+            int Gioitinh = 1;
+            int maLoaiKH = Integer.parseInt(txtMLKH.getText());
+            String TenKH = txtTenKhachHang.getText();
+            String DiaChi = txtDiachi.getText();
 
-        String SDT = txtSODienThoai.getText();
-        String loaiKH = txtLoaiKhachHang.getText();
-        String moTa = txtmota.getText();
-        if (rbtnNam.isSelected()) {
-            Gioitinh = 1;
-        } else if (rbtnNu.isSelected()) {
-            Gioitinh = 0;
+            String SDT = txtSODienThoai.getText();
+            String loaiKH = txtLoaiKhachHang.getText();
+            String moTa = txtmota.getText();
+            if (rbtnNam.isSelected()) {
+                Gioitinh = 1;
+            } else if (rbtnNu.isSelected()) {
+                Gioitinh = 0;
+            }
+
+            KhachHangDTO KH = new KhachHangDTO(MaKH, maLoaiKH, TenKH, DiaChi, Gioitinh, SDT, loaiKH, moTa);
+            KhachHangBLL.SuaKhachHang(KH);
+
+            ResultSet r1 = KhachHangDAL.LayDanhSachKhachHang();
+            KhachHangBLL.LayKHTheoMaKH(r1, tblBanHangKhach);
+        } catch (NumberFormatException e) {
+            MainClass.ThongBao("Nhập Thông Tin", "Thông Báo", 1);
         }
 
-        KhachHangDTO KH = new KhachHangDTO(MaKH, maLoaiKH, TenKH, DiaChi, Gioitinh, SDT, loaiKH, moTa);
-        KhachHangBLL.SuaKhachHang(KH);
-
-        ResultSet r1 = KhachHangDAL.LayDanhSachKhachHang();
-        KhachHangBLL.LayKHTheoMaKH(r1, tblBanHangKhach);
 
     }//GEN-LAST:event_bntSuaActionPerformed
 
     private void bntThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntThemActionPerformed
         // TODO add your handling code here:
-        int Gioitinh = 1;
-        int maLoaiKH = Integer.parseInt(txtMLKH.getText());
-        String TenKH = txtTenKhachHang.getText();
-        String DiaChi = txtDiachi.getText();
-        String SDT = txtSODienThoai.getText();
-        String loaiKH = txtLoaiKhachHang.getText();
-        String moTa = txtmota.getText();
-        if (rbtnNam.isSelected()) {
-            Gioitinh = 1;
-        } else if (rbtnNu.isSelected()) {
-            Gioitinh = 0;
-        }
-        KhachHangDTO kh = new KhachHangDTO(maLoaiKH, TenKH, DiaChi, Gioitinh, SDT, loaiKH, moTa);
-        KhachHangBLL.ThemKH(kh);
+        try {
+            int Gioitinh = 1;
+            int maLoaiKH = Integer.parseInt(txtMLKH.getText());
+            String TenKH = txtTenKhachHang.getText();
+            String DiaChi = txtDiachi.getText();
+            String SDT = txtSODienThoai.getText();
+            String loaiKH = txtLoaiKhachHang.getText();
+            String moTa = txtmota.getText();
+            if (rbtnNam.isSelected()) {
+                Gioitinh = 1;
+            } else if (rbtnNu.isSelected()) {
+                Gioitinh = 0;
+            }
+            KhachHangDTO kh = new KhachHangDTO(maLoaiKH, TenKH, DiaChi, Gioitinh, SDT, loaiKH, moTa);
+            KhachHangBLL.ThemKH(kh);
 
-        ResultSet r1 = KhachHangDAL.LayDanhSachKhachHang();
-        KhachHangBLL.LayKHTheoMaKH(r1, tblBanHangKhach);
+            ResultSet r1 = KhachHangDAL.LayDanhSachKhachHang();
+            KhachHangBLL.LayKHTheoMaKH(r1, tblBanHangKhach);
+        } catch (NumberFormatException e) {
+            MainClass.ThongBao("Nhập Thông Tin", "Thông Báo", 1);
+        }
+
     }//GEN-LAST:event_bntThemActionPerformed
 
     private void tblBanHangKhachMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBanHangKhachMouseEntered
@@ -818,7 +833,7 @@ public class FrmBanHang extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (evt.getStateChange() == 1) {
             String maLoaiSPDuocChon = ComboboxBLL.getSelectedItemID(cbbKieuKH);
-            ResultSet rs = KhachHangBLL.LayKhachHangtheoTenKhachHang(maLoaiSPDuocChon,maLoaiSPDuocChon);
+            ResultSet rs = KhachHangBLL.LayKhachHangtheoTenKhachHang(maLoaiSPDuocChon, maLoaiSPDuocChon);
             KhachHangBLL.LayKHTheoMaKH(rs, tblBanHangKhach);
         }
     }//GEN-LAST:event_cbbKieuKHItemStateChanged
@@ -826,7 +841,7 @@ public class FrmBanHang extends javax.swing.JFrame {
     private void bntXoaneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntXoaneActionPerformed
         // TODO add your handling code here:
         int[] viTriDuocChon = tblDanhSachSP.getSelectedRows();
-        DefaultTableModel model = (DefaultTableModel)tblDanhSachSP.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblDanhSachSP.getModel();
         for (int i = 0; i < viTriDuocChon.length; i++) {
             model.removeRow(i);
         }
@@ -888,9 +903,9 @@ public class FrmBanHang extends javax.swing.JFrame {
         JTable tblTam = new JTable();
         KhachHangBLL.LayKHTheoMaKH(rs, tblTam);
 
-        txtTenKH.setText(tblTam.getValueAt(0,2 ).toString());
+        txtTenKH.setText(tblTam.getValueAt(0, 2).toString());
         txtMaKH.setText(tblTam.getValueAt(0, 0).toString());
-        txtSDT.setText(tblTam.getValueAt(0,5 ).toString());
+        txtSDT.setText(tblTam.getValueAt(0, 5).toString());
         txtDiaChi.setText(tblTam.getValueAt(0, 3).toString());
     }//GEN-LAST:event_tblDanhSachMouseClicked
 

@@ -14,7 +14,6 @@ import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author truong
@@ -142,12 +141,12 @@ public class frmDangNhap extends javax.swing.JFrame {
                 frm = new FrmChinh();
                 frm.show();
                 this.dispose();
-            }else {
+            } else {
                 ThongBao("Bạn nhập sai tài khoản hoặc mật khẩu", "Lỗi đăng nhập", 2);
             }
         }
     }//GEN-LAST:event_pswMatkhauKeyPressed
-       public static FrmChinh frm;
+    public static FrmChinh frm;
     private void btnDangnhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangnhapActionPerformed
         // TODO add your handling code here:
         String tdn = txtTendangnhap.getText().trim();
@@ -156,45 +155,45 @@ public class frmDangNhap extends javax.swing.JFrame {
             frm = new FrmChinh();
             frm.show();
             this.dispose();
-        }else {
+        } else {
             ThongBao("Bạn nhập sai tài khoản hoặc mật khẩu", "Lỗi đăng nhập", 2);
         }
     }//GEN-LAST:event_btnDangnhapActionPerformed
-    
-    
+
     public static int quyen = 0;
     public static String HoTen = "";
     public static String manv = "";
- private boolean KiemTra(String dangnhap, String matkhau) {    
+
+    private boolean KiemTra(String dangnhap, String matkhau) {
         boolean kq = false;
-       
+
         String cautruyvan = "select * from db_dtdm.nhanvien where UserName= '" + dangnhap + "' "
-                            + "and Password= '" + matkhau + "'";
-        System.out.println(cautruyvan);
+                + "and Password= '" + matkhau + "'";
+
         ResultSet rs = ConnectionDB.ExcuteQueryGetTable(cautruyvan);
 
         try {
-            
-            if(rs.next()){
+
+            if (rs.next()) {
                 kq = true;
                 quyen = rs.getInt("MaQuyen");
-                System.out.println(quyen);
                 HoTen = rs.getString("TenNhanVien");
                 manv = rs.getString("MaNhanVien");
             }
-           
+
         } catch (SQLException ex) {
             System.out.println("lỗi đăng nhập");
         }
-       
+
         return kq;
     }
-    
+
     private void ThongBao(String noiDungThongBao, String tieuDeThongBao, int icon) {
         JOptionPane.showMessageDialog(new JFrame(), noiDungThongBao,
                 tieuDeThongBao, icon);
-      
+
     }
+
     /**
      * @param args the command line arguments
      */

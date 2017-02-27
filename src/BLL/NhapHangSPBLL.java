@@ -7,6 +7,7 @@ package BLL;
 
 import DAL.NhapHangSPDAL;
 import DTO.NhapHangSPDTO;
+import Presentation.MainClass;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JTable;
@@ -62,8 +63,8 @@ public class NhapHangSPBLL {
     }
     public static boolean KiemTraTenSP(NhapHangSPDTO TTSP){
         boolean ketqua = true;
-        if(TTSP.getTensp().trim().equals("")){
-            System.out.println("Chưa nhập tên");
+        if(TTSP.getDonvitinh().trim().equals("") || TTSP.getMota().trim().equals("")){
+            MainClass.ThongBao("Nhập Thông Tin", "Thông Báo", 1);
             return false;
         }
         return ketqua;

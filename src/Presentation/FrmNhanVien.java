@@ -13,6 +13,7 @@ import FormNho.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Ridotoji Pham
@@ -393,14 +394,14 @@ public class FrmNhanVien extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         ResultSet rs = QuyenBLL.LayTatCaQuyen();
-         QuyenBLL.DoDuLieuVaoJTableQuyentrongBangNhanvien(rs,tblquyen);
-         
-         ResultSet rs1 = NhanVienBLL.LayTatCaNhanVien();
+        QuyenBLL.DoDuLieuVaoJTableQuyentrongBangNhanvien(rs, tblquyen);
+
+        ResultSet rs1 = NhanVienBLL.LayTatCaNhanVien();
         NhanVienBLL.DoDuLieuVaoJTableQuyentrongBangNhanvien(rs1, tblnhanvien);
-        
+
         ResultSet rs2 = NhanVienBLL.LayTatCaNhanVien();
         NhanVienBLL.DoDuLieuVaoJTableNhanVienDayDu(rs2, tblnhanvien);
-        
+
         ResultSet rs3 = QuyenBLL.LayTatCaQuyen();
         ComboboxBLL.LoadDuLieuCombobox(rs3, cbbQuyen, "TenQuyen", "MaQuyen");
         String maKH = ComboboxBLL.getSelectedItemID(cbbQuyen);
@@ -417,41 +418,53 @@ public class FrmNhanVien extends javax.swing.JFrame {
 
     private void btnxoanhanvienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoanhanvienActionPerformed
         // TODO add your handling code here:
-       int[] cacViTriDuocChon = tblnhanvien.getSelectedRows();
-           for(int i = 0; i < cacViTriDuocChon.length; i++){
-    String MaLoaiCanXoa = tblnhanvien.getValueAt(cacViTriDuocChon[i], 0).toString() ;
-     //Gọi hàm xóa ở tầng xử lý
-            NhanVienBLL.XoaNhanVien(MaLoaiCanXoa);
-         }
-           ResultSet rs = NhanVienBLL.LayTatCaNhanVien();
-        //Đọc lại dữ liệu và đổ lại dữ liệu
-       NhanVienBLL.DoDuLieuVaoJTableNhanVienDayDu(rs, tblnhanvien); 
+
+        int[] cacViTriDuocChon = tblnhanvien.getSelectedRows();
+        if (cacViTriDuocChon == null) {
+            MainClass.ThongBao("Chọn Nhân Viên", "THông Báo", 1);
+        } else {
+            for (int i = 0; i < cacViTriDuocChon.length; i++) {
+                String MaLoaiCanXoa = tblnhanvien.getValueAt(cacViTriDuocChon[i], 0).toString();
+                //Gọi hàm xóa ở tầng xử lý
+                NhanVienBLL.XoaNhanVien(MaLoaiCanXoa);
+            }
+            ResultSet rs = NhanVienBLL.LayTatCaNhanVien();
+            //Đọc lại dữ liệu và đổ lại dữ liệu
+            NhanVienBLL.DoDuLieuVaoJTableNhanVienDayDu(rs, tblnhanvien);
+        }
+
+
     }//GEN-LAST:event_btnxoanhanvienActionPerformed
 
     private void btnsuanhanvienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsuanhanvienActionPerformed
         // TODO add your handling code here:
-        int MaNhanVien = Integer.parseInt(txtmanhanvien.getText());
-         String TenNhanVien = txttenNhanvien.getText();
-        String Diachi = txtdiachi.getText();
-        String SDT = txtsodienthoai.getText();
-        int GioiTinh;
-        if(rbdNam.isSelected()){
-            GioiTinh = 1;
-        }else{
-            GioiTinh = 0;
+        try {
+            int MaNhanVien = Integer.parseInt(txtmanhanvien.getText());
+            String TenNhanVien = txttenNhanvien.getText();
+            String Diachi = txtdiachi.getText();
+            String SDT = txtsodienthoai.getText();
+            int GioiTinh;
+            if (rbdNam.isSelected()) {
+                GioiTinh = 1;
+            } else {
+                GioiTinh = 0;
+            }
+            String CMND = txtchungminhnhandan.getText();
+            String ChucVu = txtchucvu.getText();
+            String NgaySinh = txtngaysinh.getText();
+            String NgayVaoLam = txtngayvaolam.getText();
+            String UserName = txttaikhoan.getText();
+            String Pass = txtmatkhau.getText();
+            int MaQuyen = Integer.parseInt(ComboboxBLL.getSelectedItemID(cbbQuyen));
+            String MoTa = txtMoTa.getText();
+            NhanVienDTO NV = new NhanVienDTO(MaNhanVien, TenNhanVien, Diachi, SDT, GioiTinh, CMND, ChucVu, NgaySinh, NgayVaoLam, UserName, Pass, MaQuyen, MoTa);
+            NhanVienBLL.SuaNV(NV);
+            ResultSet rs = NhanVienBLL.LayTatCaNhanVien();
+            NhanVienBLL.DoDuLieuVaoJTableNhanVienDayDu(rs, tblnhanvien);
+        } catch (NumberFormatException e) {
+            MainClass.ThongBao("Chọn Nhân Viên", "Thông Báo", 1);
         }
-        String CMND = txtchungminhnhandan.getText();
-        String ChucVu = txtchucvu.getText();
-        String NgaySinh = txtngaysinh.getText();
-        String NgayVaoLam = txtngayvaolam.getText();
-        String UserName = txttaikhoan.getText();
-        String Pass = txtmatkhau.getText();
-        int MaQuyen = Integer.parseInt(ComboboxBLL.getSelectedItemID(cbbQuyen));
-        String MoTa =txtMoTa.getText();
-        NhanVienDTO NV = new NhanVienDTO(MaNhanVien, TenNhanVien, Diachi, SDT, GioiTinh, CMND, ChucVu, NgaySinh, NgayVaoLam, UserName, Pass, MaQuyen, MoTa);
-        NhanVienBLL.SuaNV(NV);
-        ResultSet rs = NhanVienBLL.LayTatCaNhanVien();
-        NhanVienBLL.DoDuLieuVaoJTableNhanVienDayDu(rs, tblnhanvien);
+
     }//GEN-LAST:event_btnsuanhanvienActionPerformed
 
     private void btnthemnhanvienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemnhanvienActionPerformed
@@ -460,9 +473,9 @@ public class FrmNhanVien extends javax.swing.JFrame {
         String Diachi = txtdiachi.getText();
         String SDT = txtsodienthoai.getText();
         int GioiTinh;
-        if(rbdNam.isSelected()){
+        if (rbdNam.isSelected()) {
             GioiTinh = 1;
-        }else{
+        } else {
             GioiTinh = 0;
         }
         String CMND = txtchungminhnhandan.getText();
@@ -473,8 +486,8 @@ public class FrmNhanVien extends javax.swing.JFrame {
         String Pass = txtmatkhau.getText();
         //int MaQuyen = Integer.parseInt(txtmaQuyen.getText());
         int MaQuyen = Integer.parseInt(ComboboxBLL.getSelectedItemID(cbbQuyen));
-        String MoTa =txtMoTa.getText();
-        
+        String MoTa = txtMoTa.getText();
+
         NhanVienDTO Nv = new NhanVienDTO(0, TenNhanVien, Diachi, SDT, GioiTinh, CMND, ChucVu, NgaySinh, NgayVaoLam, UserName, Pass, MaQuyen, MoTa);
         NhanVienBLL.ThemNhanVien(Nv);
         ResultSet rs = NhanVienBLL.LayTatCaNhanVien();
@@ -483,7 +496,7 @@ public class FrmNhanVien extends javax.swing.JFrame {
 
     private void txttimkiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimkiemKeyReleased
         // TODO add your handling code here:
-         String tuKhoa = txttimkiem.getText();
+        String tuKhoa = txttimkiem.getText();
         //Kết quả của tìm theo từ khóa ResultSet
         ResultSet rs = NhanVienBLL.LayNVTheoTuKhoa(tuKhoa);
         //gọi hàm đổ dữ liệu sau khi tìm kiếm vào Table
@@ -496,40 +509,48 @@ public class FrmNhanVien extends javax.swing.JFrame {
 
     private void tblnhanvienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblnhanvienMouseClicked
         // TODO add your handling code here:
-         int index = tblnhanvien.getSelectedRow();
+        int index = tblnhanvien.getSelectedRow();
         txtmanhanvien.setText(tblnhanvien.getValueAt(index, 0).toString());
         txttenNhanvien.setText(tblnhanvien.getValueAt(index, 1).toString());
-       txtdiachi.setText(tblnhanvien.getValueAt(index, 2).toString());
-       txtsodienthoai.setText(tblnhanvien.getValueAt(index, 3).toString());
-      if(tblnhanvien.getValueAt(index, 4).equals("Nam")){
+        txtdiachi.setText(tblnhanvien.getValueAt(index, 2).toString());
+        txtsodienthoai.setText(tblnhanvien.getValueAt(index, 3).toString());
+        if (tblnhanvien.getValueAt(index, 4).equals("Nam")) {
             rbdNam.setSelected(true);
-        }
-        else{
+        } else {
             rbdnu.setSelected(true);
         }
-      txtchungminhnhandan.setText(tblnhanvien.getValueAt(index, 5).toString());
+        txtchungminhnhandan.setText(tblnhanvien.getValueAt(index, 5).toString());
         txtchucvu.setText(tblnhanvien.getValueAt(index, 6).toString());
-       txtngaysinh.setText(tblnhanvien.getValueAt(index, 7).toString());
-       txtngayvaolam.setText(tblnhanvien.getValueAt(index, 8).toString());
-       txttaikhoan.setText(tblnhanvien.getValueAt(index, 9).toString());
+        txtngaysinh.setText(tblnhanvien.getValueAt(index, 7).toString());
+        txtngayvaolam.setText(tblnhanvien.getValueAt(index, 8).toString());
+        txttaikhoan.setText(tblnhanvien.getValueAt(index, 9).toString());
         txtmatkhau.setText(tblnhanvien.getValueAt(index, 10).toString());
-       //txtmaQuyen.setText(tblnhanvien.getValueAt(index, 11).toString());
-       cbbQuyen.setSelectedItem(tblnhanvien.getValueAt(index, 11).toString());
+        //txtmaQuyen.setText(tblnhanvien.getValueAt(index, 11).toString());
+        cbbQuyen.setSelectedItem(tblnhanvien.getValueAt(index, 11).toString());
         txtMoTa.setText(tblnhanvien.getValueAt(index, 12).toString());
     }//GEN-LAST:event_tblnhanvienMouseClicked
 
     private void btnclearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnclearActionPerformed
         // TODO add your handling code here:
-        txtmanhanvien.setText("");txttenNhanvien.setText("");txtdiachi.setText("");txtsodienthoai.setText("");txtchungminhnhandan.setText("");
-        txtchucvu.setText("");txtngaysinh.setText("");txtngayvaolam.setText("");txttaikhoan.setText("");txtmatkhau.setText("");/*txtmaQuyen.setText("")*/;txtMoTa.setText("");
-        
+        txtmanhanvien.setText("");
+        txttenNhanvien.setText("");
+        txtdiachi.setText("");
+        txtsodienthoai.setText("");
+        txtchungminhnhandan.setText("");
+        txtchucvu.setText("");
+        txtngaysinh.setText("");
+        txtngayvaolam.setText("");
+        txttaikhoan.setText("");
+        txtmatkhau.setText("");/*txtmaQuyen.setText("")*/;
+        txtMoTa.setText("");
+
     }//GEN-LAST:event_btnclearActionPerformed
 
     private void tblquyenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblquyenMouseClicked
         // TODO add your handling code here:
-          int viTriDongVuaBam = tblquyen.getSelectedRow();
+        int viTriDongVuaBam = tblquyen.getSelectedRow();
         txtmaquyen.setText(tblquyen.getValueAt(viTriDongVuaBam, 0).toString());
-        
+
     }//GEN-LAST:event_tblquyenMouseClicked
 
     /**
